@@ -1,0 +1,64 @@
+/** @format */
+
+import React from "react";
+import { Link, NavLink } from "react-router-dom";
+import styled from "styled-components";
+import { Button } from "../../components/button";
+import { useAuth } from "../../contexts/auth-context";
+
+const DashboardHeaderStyles = styled.div`
+  background-color: white;
+  padding: 20px;
+  border-bottom: 1px solid #eee;
+  display: flex;
+  justify-content: space-between;
+
+  gap: 20px;
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    font-style: 20px;
+    font-weight: 600;
+    img {
+      max-width: 40px;
+    }
+  }
+  .header-avatar {
+    width: 50px;
+    height: 50px;
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 100rem;
+    }
+  }
+  .header-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+`;
+
+const DashboardHeader = () => {
+  const { userInfo } = useAuth();
+  return (
+    <DashboardHeaderStyles>
+      <Link to="/" className="logo">
+        <img srcSet="/logo.png 2x" alt="monkey-blogging" className="logo" />
+        <span className="hidden lg:inline-block">Monkey Blogging</span>
+      </Link>
+      <div className="header-right">
+        <Button to="/manage/add-post" className="header-button" height="52px">
+          Write new blog
+        </Button>
+        <Link to="/profile" className="header-avatar">
+          <img alt="avatar" src={userInfo?.avatar}></img>
+        </Link>
+      </div>
+    </DashboardHeaderStyles>
+  );
+};
+
+export default DashboardHeader;
